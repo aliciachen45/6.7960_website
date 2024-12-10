@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.7960 Final Project</title>
+    <meta property="og:title" content="The Platonic Representation Hypothesis" />
+          <meta charset="UTF-8">    <link rel="shortcut icon" href="images/icon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- page title -->
+    <div class="content-margin-container">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <table class="header" align=left>
+                    <tr>
+                        <td colspan=4>
+                            <span style="font-size: 32px; font-family: 'Courier New', Courier, monospace; /* Adds fallbacks */">Counting in Vision Models: CNNs, Visual Transformers, and CNN-Transformers </span>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td align=left>
+                                    <span style="font-size:17px"><a href="your_website">Alicia Chen</a></span>
+                            </td>
+                            <td align=left>
+                                    <span style="font-size:17px"><a href="your_partner's_website">Tara Sarma</a></span>
+                            </td>
+                    <tr>
+                        <td colspan=4 align=left><span style="font-size:18px">Final project for 6.7960, MIT</span></td>
+                    </tr>
+            </table>
+        </div>
+
+        <div class="margin-right-block">
+        </div>
+    </div>
+
+    <div class="content-margin-container" id="intro">
+        <div class="margin-left-block">
+            <!-- table of contents here -->
+            <div style="position:fixed; max-width:inherit; top:max(20%,120px)">
+                <b style="font-size:16px">Outline</b><br><br>
+                <a href="#intro">Introduction</a><br><br>
+                <a href="#lit_review">Literature Review</a><br><br>
+                <a href="#datasets">Dataset</a><br><br>
+                <a href="#methods">Methods</a><br><br>
+                <a href="#results">Results</a><br><br>
+                <a href="#discussion">Discussion</a><br><br>
+                <a href="#implications_and_limitations">Implications and limitations</a><br><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-margin-container" id="intro">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <h1>Introduction</h1>
+            Computer vision models have made massive strides in the past decade. Yet, despite the impressive vision models that now exist, many models, largely CNNs which dominate the computer vision landscape, excel in extracting local features but struggle with modeling long-range dependencies, exhibiting a so-called “texture bias” with a disproportionate focus on smaller details <a href = "#ref_1">[1] </a>. <br><br>
+            
+            An alternative to CNNs is visual transformers, which are reported to have an overall shape bias, 
+            i.e. focus on larger aspects of the image <a href = "#ref_1">[1] </a>. Visual transformers can identify the core features for classification and model global dependencies effectively through self-attention mechanisms but struggle to catch the smaller features. Overlooking the smaller details can consequently lead to an incomplete or even misleading interpretation of the data. In addition to its inability to find smaller details, visual transformers have been reported to be an overall more computationally costly model to train than CNNs, whose more domain-specific architecture makes training much more efficient <a href = "#ref_2">[2] </a>. <br><br>
+            
+            Given these challenges, we work towards a solution such that a vision model can both “understand” the main features of an image and still “perceive” the smaller details. Specifically, we aim to assess how well current models perform on this by testing the counting ability of these models. Counting tasks in deep learning focus on estimating the number of objects or features in an image or scene, with applications ranging from crowd counting and vehicle detection to cell counting in medical imaging. This problem poses unique challenges due to variations in object scale, occlusion, and cluttered backgrounds.
+            Some current vision models are still worse at counting in images than most human <a href = "#ref_3">[3] </a>; generative models, for example, will often give hands the wrong number of fingers. Counting features in an image is one way to integrate all parts of an image into a whole quantitatively, testing a model’s capacity to recognize and incorporate both the smaller and larger details. We aim to test counting through a variety of training tasks on CNNs, visual transformers, and Convolutional Transformers, and we hope the final architecture will be a “middle” ground of the two architectures by efficiently capturing the strengths in both and thus be better suited to the counting task overall. 
+            <br><br>
+            
+        </div>
+
+        <div class="margin-right-block">
+        </div>
+    </div>
+
+    <div class="content-margin-container" id="lit_review">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <h1>Convolutional Transformers</h1>
+            Recent advancements have integrated convolutional layers with transformers to combine CNNs' local feature extraction with the global context modeling of transformers. For example, the CvT (Convolutional Vision Transformer) by Wu et al. <a href = "#ref_4">[4] </a> replaces standard linear projections in the transformer with convolutions, enabling better local inductive bias and reduced computational overhead. By incorporating convolutions in the early layers of the network, CvT can efficiently extract local features at different scales, while the self-attention mechanism in the transformer layers helps to capture global context and relationships between objects in the image. This combination makes CvT particularly effective for counting tasks in crowded or cluttered scenes, where both fine-grained local information and global context are crucial for accurate object estimation. <br><br>
+            
+            <div class="image" id = 'CvT_arc'>
+                <img src="images/CVTArchitecture.svg" alt="CvT Architecture">
+                <div class="caption">Fig 1</div>
+            </div>
+            Despite the successes of CvT in counting tasks, several challenges remain. One major limitation is the need for large annotated datasets to train models effectively, particularly in specialized counting tasks like medical imaging or wildlife monitoring. Using simpler datasets is essential to evaluate models like CvT, as they allow for isolating specific weaknesses without the added complexity of real-world noise. By testing on easier datasets with clear, well-separated objects, it's easier to identify where a model fails, whether due to issues with feature extraction, attention mechanisms, or overfitting. This controlled environment helps pinpoint performance bottlenecks, offering valuable insights for further refinement. 
+
+        </div>
+
+        <div class="margin-right-block" style="transform: translate(0%, -100%);"> <!-- you can move the margin notes up and down with translate -->
+            Interestingly, Plato also asked if X does Y, in <a href="#ref_1">[1]</a>.
+        </div>
+    </div>
+
+    <div class="content-margin-container" id="datasets">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <h1>Dataset</h1>
+            We decided to generate our own dataset attuned to our specific counting task in assessing a model’s ability to identify large and small-scale features and to minimize the additional noise present in many natural images. We designed three distinct versions, each tailored to investigate a specific question. Each dataset comprises 256 x 256 images, featuring a pattern of shapes set against a black background. <br><br>
+
+            In both Type 1 and Type 2, we include 5 possible shape classes: circle, triangle, square, convex pentagon, and flag (which 
+            we define to be a concave pentagon with exactly one vertex pointing inward). Each chosen individual shape can be of a small, 
+            medium, or large size, and is randomly augmented in terms of rotation and flipping. In these two dataset types, our images 
+            are grayscale and the shapes themselves are white. 
+
+            <h4>Type 1</h4>
+            The simplest type of image contains up to 3 different shape classes and n individual shapes (n ~ Unif(4, 8)). The shapes are 
+            non-overlapping and each of the 2500 training and 500 testing images are generated by sampling possible locations on the 
+            256 x 256 grid of pixels, and rejecting the location if it does not fit without overlap. We cap the maximum number of trials 
+            per individual shape at 20. This method introduces a positional invariance as the location of the shapes is dynamic. In this task, 
+            the target label is n, and we wonder whether a model can accurately count the number of shapes (regardless of shape and size).
+
+            <h4>Type 2</h4>
+            This image type is similar to Type 1, though we wonder whether a model can count the number of shapes from a specific shape class. 
+            The generation process is the same as of Type 1, except that we also include the target shape in the upper left corner with an 
+            inverted color scheme (the shape is black and the background color in the local vicinity is white). In each image, the target shape 
+            is of medium size. 
+
+            <h4>Type 3</h4>
+            The third image type differs significantly from the first two, and we create 1000 training images and 500 testing images for this 
+            dataset. This task focuses on whether a model can differentiate between sizes of the same shape and understand the concept of attachment. 
+            Analogous to a vision model counting the number of fingers on a hand, we aim to test whether a model can count the number of smaller 
+            shapes directly attached to a larger shape while ignoring irrelevant shapes.  <br><br>
+
+            Each image contains only one type of shape (either circles or squares) and exhibits up to three levels of hierarchy:
+            <ul>
+                <li><b>For circles:</b> 
+                    The central circle may have up to 4 smaller circles directly attached, and each of these smaller circles may, in turn, have up 
+                    to 4 even smaller circles attached.
+                </li><b>For squares: </b>
+                    The central square may have one square attached to each of its edges. These attached squares may then have additional smaller 
+                    squares attached to their open edges (up to 3 edges per square).
+            </ul>
+            The target shape is highlighted in red, and the task is to count the number of smaller shapes immediately attached to this target shape 
+            (i.e., in the next hierarchical layer). For example, in Figure xc, the target shape has a label of 1 (indicating one attached shape). 
+            In Figure xd, the target shape has a label of 3 (indicating three attached shapes). The target shape is restricted to the first or second 
+            layer in the hierarchy.  <br><br>
+
+
+
+
+        </div>
+
+        <div class="margin-right-block"></div>
+    </div>
+
+    <div class="content-margin-container" id="datasets_images">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <div class="gallery">
+                <div class="gallery-item" id = 'image_1'>
+                    <img src="images/dataset1_example.png" alt="Image 1">
+                    <div class="caption">Fig xa</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/dataset2_example.png" alt="Image 2">
+                    <div class="caption">Fig xb</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/dataset3_circle_example.png" alt="Image 3">
+                    <div class="caption">Fig xc</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/dataset3_square_example.png" alt="Image 4">
+                    <div class="caption">Fig xd</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="margin-right-block">
+            <a href="#image_1">asdlfkja</a>>Fig xa. Example of dataset 1. This image has three shape types - convex pentagon, flag, and pentagon - 
+            and a target label of 7. <br><br>
+            
+            Fig xb. Example of dataset 2. This image has a target shape of triangle, a target label of 3, and 
+            contains other miscellaneous shape types of a circle and square. <br><br>
+
+            Fig xc. Example of dataset 3 with circles. <br><br>
+    
+            Fig xd. Example of dataset 3 with squares. <br><br>
+
+        </div>
+    </div>
+    
+    
+    <div class="content-margin-container" id="methods">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <h1>Experiments</h1>
+            Motivate your project. What question are you asking. Why is it unanswered so far? What gap in the literature or practice are you filling?
+            Why is it important?
+        </div>
+
+        <div class="margin-right-block">
+            Margin note that clarifies some detail #main-content-block for intro section.
+        </div>
+    </div>
+
+
+    <div class="content-margin-container" id="results">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <h1>Results</h1>
+            Motivate your project. What question are you asking. Why is it unanswered so far? What gap in the literature or practice are you filling?
+            Why is it important?
+        </div>
+
+        <div class="margin-right-block">
+            Margin note that clarifies some detail #main-content-block for intro section.
+        </div>
+    </div>
+
+
+    <div class="content-margin-container" id="discussion">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <h1>Discussion</h1>
+            Motivate your project. What question are you asking. Why is it unanswered so far? What gap in the literature or practice are you filling?
+            Why is it important?
+        </div>
+
+        <div class="margin-right-block">
+            Margin note that clarifies some detail #main-content-block for intro section.
+        </div>
+    </div>
+
+
+
+    <div class="content-margin-container">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <h1>Another section</h1>
+            In this section we embed a video:
+        </div>
+
+        <div class="margin-right-block">
+                A caption for the video could go here.
+        </div>
+    </div>
+
+    <div class="content-margin-container" id="implications_and_limitations">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+            <h1>Implications and limitations</h1>
+            Let's end with some discussion of the implications and limitations.
+        </div>
+
+        <div class="margin-right-block">
+        </div>
+    </div>
+
+    <div class="content-margin-container" id="citations">
+        <div class="margin-left-block">
+        </div>
+
+        <div class="main-content-block">
+                    <div class='citation' id="references" style="height:auto"><br>
+                        <span style="font-size:16px">References:</span><br><br>
+                        <a id="ref_1"></a>[1] Maurício, J., Domingues, I., & Bernardino, J. (2023). Comparing vision transformers and convolutional neural networks for Image Classification: A Literature Review. Applied Sciences, 13(9), 5521. https://doi.org/10.3390/app13095521<br><br>
+                        <a id="ref_2"></a>[2] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
+                        <a id="ref_3"></a>[3] Rane, S., Ku, A., Baldridge, J., Tenney, I., Griffiths, T. L., & Kim, B. (2024). Can Generative Multimodal Models Count to Ten. 46th Annual Meeting of the Cognitive Science Society.<br><br>
+                        <a id="ref_4"></a>[4] Wu, H., Xiao, B., Codella, N., Liu, M., Dai, X., Yuan, L., & Zhang, L. (2021). CVT: Introducing convolutions to Vision Transformers. 2021 IEEE/CVF International Conference on Computer Vision (ICCV), 22–31. https://doi.org/10.1109/iccv48922.2021.00009<br><br>
+                        <a id="ref_5"></a>[5] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
+                        <a id="ref_6"></a>[6] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
+                    </div>
+        </div>
+
+        <div class="margin-right-block">
+        <!-- margin notes for reference block here -->
+        </div>
+    </div>
+
+</body>
+
+</html>
