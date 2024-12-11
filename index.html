@@ -45,9 +45,9 @@
             <div style="position:fixed; max-width:inherit; top:max(20%,120px)">
                 <b style="font-size:16px">Outline</b><br><br>
                 <a href="#intro">Introduction</a><br><br>
-                <a href="#lit_review">Literature Review</a><br><br>
+                <a href="#lit_review">Convolutional Transformers</a><br><br>
                 <a href="#datasets">Dataset</a><br><br>
-                <a href="#Models">Models</a><br><br>
+                <a href="#models">Models</a><br><br>
                 <a href="#results">Results</a><br><br>
                 <a href="#discussion">Discussion</a><br><br>
                 <a href="#implications_and_limitations">Implications and limitations</a><br><br>
@@ -86,14 +86,13 @@
             
             <div class="image" id = 'CvT_arc'>
                 <img src="images/CVTArchitecture.svg" alt="CvT Architecture">
-                <div class="caption">Fig 1</div>
+                <div class="caption">Fig 1. Demonstrates the general structure of the CvT used in our methods. Figure is taken from https://github.com/microsoft/CvT</div>
             </div>
             Despite the successes of CvT in counting tasks, several challenges remain. One major limitation is the need for large annotated datasets to train models effectively, particularly in specialized counting tasks like medical imaging or wildlife monitoring. Using simpler datasets is essential to evaluate models like CvT, as they allow for isolating specific weaknesses without the added complexity of real-world noise. By testing on easier datasets with clear, well-separated objects, it's easier to identify where a model fails, whether due to issues with feature extraction, attention mechanisms, or overfitting. This controlled environment helps pinpoint performance bottlenecks, offering valuable insights for further refinement. 
 
         </div>
 
         <div class="margin-right-block" style="transform: translate(0%, -100%);"> <!-- you can move the margin notes up and down with translate -->
-            Interestingly, Plato also asked if X does Y, in <a href="#ref_1">[1]</a>.
         </div>
     </div>
 
@@ -159,50 +158,51 @@
             <div class="gallery">
                 <div class="gallery-item" id = 'image_1'>
                     <img src="images/dataset1_example.png" alt="Image 1">
-                    <div class="caption">Fig xa</div>
+                    <div class="caption">Fig. 2a</div>
                 </div>
                 <div class="gallery-item">
                     <img src="images/dataset2_example.png" alt="Image 2">
-                    <div class="caption">Fig xb</div>
+                    <div class="caption">Fig. 2b</div>
                 </div>
                 <div class="gallery-item">
                     <img src="images/dataset3_circle_example.png" alt="Image 3">
-                    <div class="caption">Fig xc</div>
+                    <div class="caption">Fig. 2c</div>
                 </div>
                 <div class="gallery-item">
                     <img src="images/dataset3_square_example.png" alt="Image 4">
-                    <div class="caption">Fig xd</div>
+                    <div class="caption">Fig. 2d</div>
                 </div>
             </div>
         </div>
 
-        <div class="margin-right-block">
-            <a href="#image_1">asdlfkja</a>>Fig xa. Example of dataset 1. This image has three shape types - convex pentagon, flag, and pentagon - 
+        <div class="margin-right-block" style = "font-size: 9pt">
+            Fig 2a. Example of dataset 1. This image has three shape types - convex pentagon, flag, and pentagon - 
             and a target label of 7. <br><br>
             
-            Fig xb. Example of dataset 2. This image has a target shape of triangle, a target label of 3, and 
+            Fig 2b. Example of dataset 2. This image has a target shape of triangle, a target label of 3, and 
             contains other miscellaneous shape types of a circle and square. <br><br>
 
-            Fig xc. Example of dataset 3 with circles. <br><br>
+            Fig 2c. Example of dataset 3 with circles. <br><br>
     
-            Fig xd. Example of dataset 3 with squares. <br><br>
+            Fig 2d. Example of dataset 3 with squares. <br><br>
 
         </div>
     </div>
     
     
-    <div class="content-margin-container" id="methods">
+    <div class="content-margin-container" id="models">
         <div class="margin-left-block">
         </div>
 
         <div class="main-content-block">
-            <h1>Experiments</h1>
-            Motivate your project. What question are you asking. Why is it unanswered so far? What gap in the literature or practice are you filling?
-            Why is it important?
+            <h1>Models</h1>
+            We implemented three model architectures and performed the same evaluation and experiments on all three: 1) convolutional neural network (CNN) 2) visual transformer (ViT) and 3) Convolutional Visual Transformer (CvT). A single ReLU output was added to each to produce a single number (count) which was rounded when evaluating accuracy. <br><br>
+
+            For each experiment, we used the Adam optimizer with a cosine-annealing learning-rate scheduler to prevent the model from becoming stuck in local minima. We also used a constant batch size of 64 and a RMSE (Root Mean Squared) loss function. We found this worked better than MSELoss, especially for CNNs. This is possibly due to RMSE being more linear. 
         </div>
 
-        <div class="margin-right-block">
-            Margin note that clarifies some detail #main-content-block for intro section.
+        <div class="margin-right-block" style = "font-size: 9pt">
+            The CNN had 6 convolutional layers, a fully-connected linear layer with a latent dimension of length 16. The ViT had 4 attention layers, with an embedding dimension size of 64 and 16x16 patch embeddings. The CvT had 3 attention layers, with increasing embedding dimensions of 16, 48, and 96. It also had decreasing convolutional embedding kernel sizes of 31, 15, and 3, along with strides of 16, then 8, then 1.
         </div>
     </div>
 
@@ -214,17 +214,20 @@
         <div class="main-content-block">
             <h1>Results</h1>
             <h4 class = "heading4">Model Loss and Accuracies</h4>
+            The training and validation accuracies for each of the three models are shown in <a href = "#table_1">Table 1</a> as well as the bar chart in <a href = "#fig_3">Fig. 3</a>
+            <br><br>
 
+            <!-- model loss + accuracy table -->
             <table class="styled-table">
                 <thead>
                     <tr>
                         <th></th>
-                        <th>w/Type 1 Training </th>
-                        <th>w/Type 1 Testing </th>
-                        <th>w/Type 2 Training  </th>
-                        <th>w/Type 2 Testing  </th>
-                        <th>w/Type 3 Training  </th>
-                        <th>w/Type 3 Testing  </th>
+                        <th>Task 1 Training </th>
+                        <th>Task 1 Testing </th>
+                        <th>Task 2 Training  </th>
+                        <th>Task 2 Testing  </th>
+                        <th>Task 3 Training  </th>
+                        <th>Task 3 Testing  </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -257,11 +260,186 @@
                     </tr>
                 </tbody>
             </table>
+            <div class = 'caption' style = "padding-left:100px" id = 'table_1'>Table 1. Model Loss and Accuracies</div>
+            
+            <!-- bar plot of accuracies  -->
+            <div class = "float-container" id = "fig_3">
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #4caf50;"></div>
+                        <div class="legend-label">CNN</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #2196f3;"></div>
+                        <div class="legend-label">ViT</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ff5722;"></div>
+                        <div class="legend-label">CvT</div>
+                    </div>
+                </div>
+                <div class = "float-child">
+                    <h3>Training Accuracies</h3>
+                    <div class="bar-chart">
+                        <!-- Group 1 -->
+                        <div class="group">
+                            <div class="bar" style="--height: 98.1; --color: #4caf50;">
+                                <div class="bar-value">0.981</div>
+                                <span></span>
+                                <div class="bar-label">Task 1 </div>
+                            </div>
+                            <div class="bar" style="--height: 64.1; --color: #2196f3;">
+                                <div class="bar-value">0.641</div>
+                                <span></span>
+                                <div class="bar-label">Task 1</div>
+                            </div>
+                            <div class="bar" style="--height: 78.3; --color: #ff5722;">
+                                <div class="bar-value">0.783</div>
+                                <span></span>
+                                <div class="bar-label">Task 1</div>
+                            </div>
+                            
+                        </div>
+                        <!-- Group 2 -->
+                        <div class="group">
+                            <div class="bar" style="--height: 91.4; --color: #4caf50;">
+                                <div class="bar-value">0.914</div>
+                                <span></span>
+                                <div class="bar-label">Task 2</div>
+                            </div>
+                            <div class="bar" style="--height: 28.6; --color: #2196f3;">
+                                <div class="bar-value">0.286</div>
+                                <span></span>
+                                <div class="bar-label">Task 2</div>
+                            </div>
+                            <div class="bar" style="--height: 65.7; --color: #ff5722;">
+                                <div class="bar-value">0.657</div>
+                                <span></span>
+                                <div class="bar-label">Task 2</div>
+                            </div>
+                        </div>
+                        <!-- Group 3 -->
+                        <div class="group">
+                            <div class="bar" style="--height: 96.9; --color: #4caf50;">
+                                <div class="bar-value">0.969</div>
+                                <span></span>
+                                <div class="bar-label">Task 3</div>
+                            </div>
+                            <div class="bar" style="--height: 45.7; --color: #2196f3;">
+                                <div class="bar-value">0.457</div>
+                                <span></span>
+                                <div class="bar-label">Task 3</div>
+                            </div>
+                            
+                            <div class="bar" style="--height: 75.1; --color: #ff5722;">
+                                <div class="bar-value">0.751</div>
+                                <span></span>
+                                <div class="bar-label">Task 3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class = "float-child">
+                    <h3>Testing Accuracies</h3>
+                    <div class="bar-chart">
+                        <!-- Group 1 -->
+                        <div class="group">
+                            <div class="bar" style="--height: 72.4; --color: #4caf50;">
+                                <div class="bar-value">0.724</div>
+                                <span></span>
+                                <div class="bar-label">Task 1</div>
+                            </div>
+
+                            <div class="bar" style="--height: 56; --color: #2196f3;">
+                                <div class="bar-value">0.560</div>
+                                <span></span>
+                                <div class="bar-label">Task 1</div>
+                            </div>
+
+                            <div class="bar" style="--height: 51.8; --color: #ff5722;">
+                                <div class="bar-value">0.518</div>
+                                <span></span>
+                                <div class="bar-label">Task 1</div>
+                            </div>
+                        </div>
+                        <!-- Group 2 -->
+                        <div class="group">
+                            <div class="bar" style="--height: 29.6; --color: #4caf50;">
+                                <div class="bar-value">0.296</div>
+                                <span></span>
+                                <div class="bar-label">Task 2</div>
+                            </div>
+                            
+                            <div class="bar" style="--height: 29.3; --color: #2196f3;">
+                                <div class="bar-value">0.293</div>
+                                <span></span>
+                                <div class="bar-label">Task 2</div>
+                            </div>
+                            
+                            <div class="bar" style="--height: 27.6; --color: #ff5722;">
+                                <div class="bar-value">0.276</div>
+                                <span></span>
+                                <div class="bar-label">Task 2</div>
+                            </div>
+                        </div>
+                        <!-- Group 3 -->
+                        <div class="group">
+                            <div class="bar" style="--height: 66.8; --color: #4caf50;">
+                                <div class="bar-value">0.668</div>
+                                <span></span>
+                                <div class="bar-label">Task 3</div>
+                            </div>
+
+                            <div class="bar" style="--height: 60.2; --color: #2196f3;">
+                                <div class="bar-value">0.602</div>
+                                <span></span>
+                                <div class="bar-label">Task 3</div>
+                            </div>
+
+                            <div class="bar" style="--height: 67; --color: #ff5722;">
+                                <div class="bar-value">0.670</div>
+                                <span></span>
+                                <div class="bar-label">Task 3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "caption" style = "margin-left:20px">Fig 3. Demonstrates the training and testing accuracies of Tasks 1, 2, 3</div>
+            </div>
+
+            <h4 class = "heading4">t-SNE plots (t-distributed Stochastic Neighbor Embedding)</h4>
+            <div class = "vertical-gallery">
+                <div class = "vertical-gallery-item">
+                    <img src="images/cnn_tsne.jpeg" alt="t-SNE CNN" width = 1000px>
+                    <div class="caption" style="text-align:left; margin-left:100pt; margin-bottom: 10pt">Fig 4a. t-SNE plot of CNN</div>
+                </div>
+                <div class = "vertical-gallery-item">
+                    <img src="images/vit_tsne.jpeg" alt="t-SNE CNN" width = 1000px>
+                    <div class="caption" style="text-align:left; margin-left:100pt; margin-bottom: 10pt">Fig 4b. t-SNE plot of ViT</div>
+                </div>
+                <div class = "vertical-gallery-item">
+                    <img src="images/cvt_tsne.jpeg" alt="t-SNE CNN" width = 1000px>
+                    <div class="caption" style="text-align:left; margin-left:100pt; margin-bottom: 10pt">Fig 4c t-SNE plot of CvT</div>
+                </div>
+                <div class = "caption" style="text-align: left; font-size: 8pt;"> Caption: TSNE plots of the “latent vectors” of each model on testing data for each task, referring to the penultimate layer of each model before the ReLU output. For the CNN, this was the penultimate linear layer, and for the transformers, this was the embeddings of the final attention blocked passed through an average pooling layer. TSNE maps a series of vectors to a two dimensional plane statistically such that vectors with more similar features are closer together.  All plots are colored by ground truth labels, i.e. the “count” produced by the task. 4a: The TSNE plot for CNNs. Latent vectors were of length 16. 4b: The TSNE plot for ViTs. Latent vectors were of length 64. 4c: The TSNE plot for CvTs. Latent vectors were of length 96.
+                </div>
+            </div>
+
+
+            <div class = "vertical-gallery">
+                <div class = "vertical-gallery-item">
+                    <img src="images/task2_tsne.jpeg" alt="t-SNE CNN" width = 1000px>
+                    <div class="caption" style="text-align:left; margin-left:100pt">Fig 5. A comparison of TSNE plots for all three models running the training data of task 2.
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="margin-right-block">
-            Margin note that clarifies some detail #main-content-block for intro section.
         </div>
+    </div>
     </div>
 
 
@@ -276,25 +454,9 @@
         </div>
 
         <div class="margin-right-block">
-            Margin note that clarifies some detail #main-content-block for intro section.
         </div>
     </div>
 
-
-
-    <div class="content-margin-container">
-        <div class="margin-left-block">
-        </div>
-
-        <div class="main-content-block">
-            <h1>Another section</h1>
-            In this section we embed a video:
-        </div>
-
-        <div class="margin-right-block">
-                A caption for the video could go here.
-        </div>
-    </div>
 
     <div class="content-margin-container" id="implications_and_limitations">
         <div class="margin-left-block">
@@ -314,15 +476,15 @@
         </div>
 
         <div class="main-content-block">
-                    <div class='citation' id="references" style="height:auto"><br>
-                        <span style="font-size:16px">References:</span><br><br>
-                        <a id="ref_1"></a>[1] Maurício, J., Domingues, I., & Bernardino, J. (2023). Comparing vision transformers and convolutional neural networks for Image Classification: A Literature Review. Applied Sciences, 13(9), 5521. https://doi.org/10.3390/app13095521<br><br>
-                        <a id="ref_2"></a>[2] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
-                        <a id="ref_3"></a>[3] Rane, S., Ku, A., Baldridge, J., Tenney, I., Griffiths, T. L., & Kim, B. (2024). Can Generative Multimodal Models Count to Ten. 46th Annual Meeting of the Cognitive Science Society.<br><br>
-                        <a id="ref_4"></a>[4] Wu, H., Xiao, B., Codella, N., Liu, M., Dai, X., Yuan, L., & Zhang, L. (2021). CVT: Introducing convolutions to Vision Transformers. 2021 IEEE/CVF International Conference on Computer Vision (ICCV), 22–31. https://doi.org/10.1109/iccv48922.2021.00009<br><br>
-                        <a id="ref_5"></a>[5] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
-                        <a id="ref_6"></a>[6] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
-                    </div>
+            <div class='citation' id="references" style="height:auto"><br>
+                <span style="font-size:16px">References:</span><br><br>
+                <a id="ref_1"></a>[1] Maurício, J., Domingues, I., & Bernardino, J. (2023). Comparing vision transformers and convolutional neural networks for Image Classification: A Literature Review. Applied Sciences, 13(9), 5521. https://doi.org/10.3390/app13095521<br><br>
+                <a id="ref_2"></a>[2] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
+                <a id="ref_3"></a>[3] Rane, S., Ku, A., Baldridge, J., Tenney, I., Griffiths, T. L., & Kim, B. (2024). Can Generative Multimodal Models Count to Ten. 46th Annual Meeting of the Cognitive Science Society.<br><br>
+                <a id="ref_4"></a>[4] Wu, H., Xiao, B., Codella, N., Liu, M., Dai, X., Yuan, L., & Zhang, L. (2021). CVT: Introducing convolutions to Vision Transformers. 2021 IEEE/CVF International Conference on Computer Vision (ICCV), 22–31. https://doi.org/10.1109/iccv48922.2021.00009<br><br>
+                <a id="ref_5"></a>[5] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
+                <a id="ref_6"></a>[6] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
+            </div>
         </div>
 
         <div class="margin-right-block">
