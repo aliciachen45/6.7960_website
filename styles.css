@@ -376,3 +376,14 @@ padding: 10px;
     height: auto;
     padding: 10px;
 }
+
+/* title floating*/
+.title-float-container {
+    border: 3px solid #fff;
+    padding: 0px;
+}
+.title-float-child {
+    width: var(--width);
+    float: left;
+    padding: 10px;
+}  

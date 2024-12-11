@@ -16,23 +16,20 @@
         </div>
 
         <div class="main-content-block">
-            <table class="header" align=left>
-                    <tr>
-                        <td colspan=4>
-                            <span style="font-size: 32px; font-family: 'Courier New', Courier, monospace; /* Adds fallbacks */">Counting in Vision Models: CNNs, Visual Transformers, and CNN-Transformers </span>
-                        </td>
-                    </tr>
-                    <tr>
-                            <td align=left>
-                                    <span style="font-size:17px"><a href="your_website">Alicia Chen</a></span>
-                            </td>
-                            <td align=left>
-                                    <span style="font-size:17px"><a href="your_partner's_website">Tara Sarma</a></span>
-                            </td>
-                    <tr>
-                        <td colspan=4 align=left><span style="font-size:18px">Final project for 6.7960, MIT</span></td>
-                    </tr>
-            </table>
+            <div class = "title-float-container">
+                <div class = "title-float-child" style="--width: 60%;">
+
+                    <div style="font-size: 32px; font-family: 'Courier New', Courier, monospace;">Counting in Vision Models: CNNs, Visual Transformers, and CNN-Transformers </div>
+
+                    <div style="font-size:17px"><a href="your_website">Alicia Chen</a></div>
+        
+                    <div style="font-size:17px"><a href="your_partner's_website">Tara Sarma</a></div>
+                </div>
+                <div class = "title-float-child" style="--width: 35%;">
+                    <img src = "images/counting.jpg" alt = "cover image">
+                </div>
+            </div>
+            <!-- <img src="images/counting.jpg" alt="Cover Image" style="width:100%; height: 100%; object-fit: cover;"> -->
         </div>
 
         <div class="margin-right-block">
@@ -50,7 +47,7 @@
                 <a href="#models">Models</a><br><br>
                 <a href="#results">Results</a><br><br>
                 <a href="#discussion">Discussion</a><br><br>
-                <a href="#implications_and_limitations">Implications and limitations</a><br><br>
+                <a href="#conclusion">Conclusion and Limitations</a><br><br>
             </div>
         </div>
     </div>
@@ -61,13 +58,31 @@
 
         <div class="main-content-block">
             <h1>Introduction</h1>
-            Computer vision models have made massive strides in the past decade. Yet, despite the impressive vision models that now exist, many models, largely CNNs which dominate the computer vision landscape, excel in extracting local features but struggle with modeling long-range dependencies, exhibiting a so-called “texture bias” with a disproportionate focus on smaller details <a href = "#ref_1">[1] </a>. <br><br>
+            Computer vision models have made massive strides in the past decade. Yet, despite the impressive vision models that now exist, many models, 
+            largely CNNs which dominate the computer vision landscape, excel in extracting local features but struggle with modeling long-range dependencies, 
+            exhibiting a so-called “texture bias” with a disproportionate focus on smaller details <a href = "#ref_1">[1] </a>. <br><br>
             
-            An alternative to CNNs is visual transformers, which are reported to have an overall shape bias, 
-            i.e. focus on larger aspects of the image <a href = "#ref_1">[1] </a>. Visual transformers can identify the core features for classification and model global dependencies effectively through self-attention mechanisms but struggle to catch the smaller features. Overlooking the smaller details can consequently lead to an incomplete or even misleading interpretation of the data. In addition to its inability to find smaller details, visual transformers have been reported to be an overall more computationally costly model to train than CNNs, whose more domain-specific architecture makes training much more efficient <a href = "#ref_2">[2] </a>. <br><br>
+            An alternative to CNNs is visual transformers, which are reported to have an overall shape bias, i.e. focus on larger aspects of the image 
+            <a href = "#ref_1">[1] </a>. Visual transformers can identify the core features for classification and model global dependencies effectively 
+            through self-attention mechanisms but struggle to catch the smaller features. Overlooking the smaller details can consequently lead to an 
+            incomplete or even misleading interpretation of the data. In addition to its inability to find smaller details, visual transformers have been 
+            reported to be an overall more computationally costly model to train than CNNs, whose more domain-specific architecture makes training much more 
+            efficient <a href = "#ref_2">[2] </a>. <br><br>
             
-            Given these challenges, we work towards a solution such that a vision model can both “understand” the main features of an image and still “perceive” the smaller details. Specifically, we aim to assess how well current models perform on this by testing the counting ability of these models. Counting tasks in deep learning focus on estimating the number of objects or features in an image or scene, with applications ranging from crowd counting and vehicle detection to cell counting in medical imaging. This problem poses unique challenges due to variations in object scale, occlusion, and cluttered backgrounds.
-            Some current vision models are still worse at counting in images than most human <a href = "#ref_3">[3] </a>; generative models, for example, will often give hands the wrong number of fingers. Counting features in an image is one way to integrate all parts of an image into a whole quantitatively, testing a model’s capacity to recognize and incorporate both the smaller and larger details. We aim to test counting through a variety of training tasks on CNNs, visual transformers, and Convolutional Transformers, and we hope the final architecture will be a “middle” ground of the two architectures by efficiently capturing the strengths in both and thus be better suited to the counting task overall. 
+            Given these challenges, we work towards a solution such that a vision model can both “understand” the main features of an image and still “perceive” 
+            the smaller details. Specifically, we aim to assess how well current models perform on this by testing the counting ability of these models. 
+            Counting tasks in deep learning focus on estimating the number of objects or features in an image or scene, with applications ranging from crowd 
+            counting and vehicle detection to cell counting in medical imaging. This problem poses unique challenges due to variations in object scale, occlusion, 
+            and cluttered backgrounds. Additionally, counting is a versatile and easily quantifiable task that has been shown to be a proxy to numeric reasoning in 
+            vision models <a href = "#ref_3">[3]</a>. In other words, depending on the task, can counting succinctly quantify a model’s ability to perceive larger 
+            features and details in an image, as well as show its ability to numerically reason about them. <br><br>
+
+
+            Some current vision models are still worse at counting in images than most human <a href = "#ref_4">[4] </a>; generative models, for example, will often 
+            give hands the wrong number of fingers. Counting features in an image is one way to integrate all parts of an image into a whole quantitatively, testing 
+            a model’s capacity to recognize and incorporate both the smaller and larger details. We aim to test counting through a variety of training tasks on CNNs, 
+            visual transformers, and Convolutional Transformers, and we hope the final architecture will be a “middle” ground of the two architectures by efficiently 
+            capturing the strengths in both and thus be better suited to the counting task overall. 
             <br><br>
             
         </div>
@@ -82,13 +97,22 @@
 
         <div class="main-content-block">
             <h1>Convolutional Transformers</h1>
-            Recent advancements have integrated convolutional layers with transformers to combine CNNs' local feature extraction with the global context modeling of transformers. For example, the CvT (Convolutional Vision Transformer) by Wu et al. <a href = "#ref_4">[4] </a> replaces standard linear projections in the transformer with convolutions, enabling better local inductive bias and reduced computational overhead. By incorporating convolutions in the early layers of the network, CvT can efficiently extract local features at different scales, while the self-attention mechanism in the transformer layers helps to capture global context and relationships between objects in the image. This combination makes CvT particularly effective for counting tasks in crowded or cluttered scenes, where both fine-grained local information and global context are crucial for accurate object estimation. <br><br>
+            Recent advancements have integrated convolutional layers with transformers to combine CNNs' local feature extraction with the global context modeling 
+            of transformers. For example, the CvT (Convolutional Vision Transformer) by Wu et al. <a href = "#ref_5">[5] </a> replaces standard linear projections 
+            in the transformer with convolutions, enabling better local inductive bias and reduced computational overhead. By incorporating convolutions in the 
+            early layers of the network, CvT can efficiently extract local features at different scales, while the self-attention mechanism in the transformer 
+            layers helps to capture global context and relationships between objects in the image. This combination makes CvT particularly effective for counting 
+            tasks in crowded or cluttered scenes, where both fine-grained local information and global context are crucial for accurate object estimation. <br><br>
             
             <div class="image" id = 'CvT_arc'>
                 <img src="images/CVTArchitecture.svg" alt="CvT Architecture">
                 <div class="caption">Fig 1. Demonstrates the general structure of the CvT used in our methods. Figure is taken from https://github.com/microsoft/CvT</div>
             </div>
-            Despite the successes of CvT in counting tasks, several challenges remain. One major limitation is the need for large annotated datasets to train models effectively, particularly in specialized counting tasks like medical imaging or wildlife monitoring. Using simpler datasets is essential to evaluate models like CvT, as they allow for isolating specific weaknesses without the added complexity of real-world noise. By testing on easier datasets with clear, well-separated objects, it's easier to identify where a model fails, whether due to issues with feature extraction, attention mechanisms, or overfitting. This controlled environment helps pinpoint performance bottlenecks, offering valuable insights for further refinement. 
+            Despite the successes of CvT in counting tasks, several challenges remain. One major limitation is the need for large annotated datasets to train models 
+            effectively, particularly in specialized counting tasks like medical imaging or wildlife monitoring. Using simpler datasets is essential to evaluate 
+            models like CvT, as they allow for isolating specific weaknesses without the added complexity of real-world noise. By testing on easier datasets with 
+            clear, well-separated objects, it's easier to identify where a model fails, whether due to issues with feature extraction, attention mechanisms, or 
+            overfitting. This controlled environment helps pinpoint performance bottlenecks, offering valuable insights for further refinement. 
 
         </div>
 
@@ -102,27 +126,29 @@
 
         <div class="main-content-block">
             <h1>Dataset</h1>
-            We decided to generate our own dataset attuned to our specific counting task in assessing a model’s ability to identify large and small-scale features and to minimize the additional noise present in many natural images. We designed three distinct versions, each tailored to investigate a specific question. Each dataset comprises 256 x 256 images, featuring a pattern of shapes set against a black background. <br><br>
+            We decided to generate our own dataset attuned to our specific counting task in assessing a model’s ability to identify large and small-scale 
+            features and to minimize the additional noise present in many natural images. We designed three distinct versions, each tailored to investigate 
+            a specific question. Each dataset comprises 256 x 256 images, featuring a pattern of shapes set against a black background. <br><br>
 
-            In both Type 1 and Type 2, we include 5 possible shape classes: circle, triangle, square, convex pentagon, and flag (which 
+            In both Task 1 and Task 2, we include 5 possible shape classes: circle, triangle, square, convex pentagon, and flag (which 
             we define to be a concave pentagon with exactly one vertex pointing inward). Each chosen individual shape can be of a small, 
             medium, or large size, and is randomly augmented in terms of rotation and flipping. In these two dataset types, our images 
             are grayscale and the shapes themselves are white. 
 
-            <h4 class = "heading4">Type 1</h4>
+            <h4 class = "heading4">Task 1</h4>
             The simplest type of image contains up to 3 different shape classes and n individual shapes (n ~ Unif(4, 8)). The shapes are 
-            non-overlapping and each of the 2500 training and 500 testing images are generated by sampling possible locations on the 
+            non-overlapping and each of the 3500 training and 500 testing images are generated by sampling possible locations on the 
             256 x 256 grid of pixels, and rejecting the location if it does not fit without overlap. We cap the maximum number of trials 
             per individual shape at 20. This method introduces a positional invariance as the location of the shapes is dynamic. In this task, 
             the target label is n, and we wonder whether a model can accurately count the number of shapes (regardless of shape and size).
 
-            <h4 class = "heading4">Type 2</h4>
-            This image type is similar to Type 1, though we wonder whether a model can count the number of shapes from a specific shape class. 
-            The generation process is the same as of Type 1, except that we also include the target shape in the upper left corner with an 
+            <h4 class = "heading4">Task 2</h4>
+            This image type is similar to Task 1, though we wonder whether a model can count the number of shapes from a specific shape class. 
+            The generation process is the same as of Task 1, except that we also include the target shape in the upper left corner with an 
             inverted color scheme (the shape is black and the background color in the local vicinity is white). In each image, the target shape 
             is of medium size. 
 
-            <h4 class = "heading4">Type 3</h4>
+            <h4 class = "heading4">Task 3</h4>
             The third image type differs significantly from the first two, and we create 1000 training images and 500 testing images for this 
             dataset. This task focuses on whether a model can differentiate between sizes of the same shape and understand the concept of attachment. 
             Analogous to a vision model counting the number of fingers on a hand, we aim to test whether a model can count the number of smaller 
@@ -196,13 +222,19 @@
 
         <div class="main-content-block">
             <h1>Models</h1>
-            We implemented three model architectures and performed the same evaluation and experiments on all three: 1) convolutional neural network (CNN) 2) visual transformer (ViT) and 3) Convolutional Visual Transformer (CvT). A single ReLU output was added to each to produce a single number (count) which was rounded when evaluating accuracy. <br><br>
+            We implemented three model architectures and performed the same evaluation and experiments on all three: 1. convolutional neural network (CNN) 
+            2. visual transformer (ViT) and 3) Convolutional Visual Transformer (CvT). A single ReLU output was added to each to produce a single number 
+            (count) which was rounded when evaluating accuracy. <br><br>
 
-            For each experiment, we used the Adam optimizer with a cosine-annealing learning-rate scheduler to prevent the model from becoming stuck in local minima. We also used a constant batch size of 64 and a RMSE (Root Mean Squared) loss function. We found this worked better than MSELoss, especially for CNNs. This is possibly due to RMSE being more linear. 
+            For each experiment, we used the Adam optimizer with a cosine-annealing learning-rate scheduler to prevent the model from becoming stuck in local 
+            minima. We also used a constant batch size of 64 and a RMSE (Root Mean Squared) loss function. We found this worked better than MSELoss, especially 
+            for CNNs. This is possibly due to RMSE being more linear. 
         </div>
 
         <div class="margin-right-block" style = "font-size: 9pt">
-            The CNN had 6 convolutional layers, a fully-connected linear layer with a latent dimension of length 16. The ViT had 4 attention layers, with an embedding dimension size of 64 and 16x16 patch embeddings. The CvT had 3 attention layers, with increasing embedding dimensions of 16, 48, and 96. It also had decreasing convolutional embedding kernel sizes of 31, 15, and 3, along with strides of 16, then 8, then 1.
+            The CNN had 6 convolutional layers, a fully-connected linear layer with a latent dimension of length 16. The ViT had 4 attention layers, with an 
+            embedding dimension size of 64 and 16x16 patch embeddings. The CvT had 3 attention layers, with increasing embedding dimensions of 16, 48, and 96. 
+            It also had decreasing convolutional embedding kernel sizes of 31, 15, and 3, along with strides of 16, then 8, then 1.
         </div>
     </div>
 
@@ -214,7 +246,8 @@
         <div class="main-content-block">
             <h1>Results</h1>
             <h4 class = "heading4">Model Loss and Accuracies</h4>
-            The training and validation accuracies for each of the three models are shown in <a href = "#table_1">Table 1</a> as well as the bar chart in <a href = "#fig_3">Fig. 3</a>
+            The training and validation accuracies for each of the three models are shown in <a href = "#table_1">Table 1</a> as well as the bar chart in 
+            <a href = "#fig_3">Fig. 3</a>
             <br><br>
 
             <!-- model loss + accuracy table -->
@@ -423,7 +456,12 @@
                     <img src="images/cvt_tsne.jpeg" alt="t-SNE CNN" width = 1000px>
                     <div class="caption" style="text-align:left; margin-left:100pt; margin-bottom: 10pt">Fig 4c t-SNE plot of CvT</div>
                 </div>
-                <div class = "caption" style="text-align: left; font-size: 8pt;"> Caption: TSNE plots of the “latent vectors” of each model on testing data for each task, referring to the penultimate layer of each model before the ReLU output. For the CNN, this was the penultimate linear layer, and for the transformers, this was the embeddings of the final attention blocked passed through an average pooling layer. TSNE maps a series of vectors to a two dimensional plane statistically such that vectors with more similar features are closer together.  All plots are colored by ground truth labels, i.e. the “count” produced by the task. 4a: The TSNE plot for CNNs. Latent vectors were of length 16. 4b: The TSNE plot for ViTs. Latent vectors were of length 64. 4c: The TSNE plot for CvTs. Latent vectors were of length 96.
+                <div class = "caption" style="text-align: left; font-size: 8pt;"> Caption: TSNE plots of the “latent vectors” of each model on testing data 
+                    for each task, referring to the penultimate layer of each model before the ReLU output. For the CNN, this was the penultimate linear layer, 
+                    and for the transformers, this was the embeddings of the final attention blocked passed through an average pooling layer. TSNE maps a series 
+                    of vectors to a two dimensional plane statistically such that vectors with more similar features are closer together.  All plots are 
+                    colored by ground truth labels, i.e. the “count” produced by the task. 4a: The TSNE plot for CNNs. Latent vectors were of length 16. 4b: The 
+                    TSNE plot for ViTs. Latent vectors were of length 64. 4c: The TSNE plot for CvTs. Latent vectors were of length 96.
                 </div>
             </div>
 
@@ -449,8 +487,64 @@
 
         <div class="main-content-block">
             <h1>Discussion</h1>
-            Motivate your project. What question are you asking. Why is it unanswered so far? What gap in the literature or practice are you filling?
-            Why is it important?
+            <h4 class = "heading4">Model Performance</h4>
+
+            Task 1 was the best captured overall, likely as it was the simplest, with no need to consider either shape of objects nor 
+            relation to each other in counting. However, interestingly, task 3 had higher performance scores overall than task 2. 
+            This could imply that overall, all three models were better at counting in relation to other objects spatially than counting 
+            in relation to specific shapes. In other words, all three models may more easily capture spatial relations between objects 
+            in an image (as in, which objects are connected to other objects), than capturing specific shape identity. Another additional 
+            explanation is complexity. Task 3 only involved two kinds of regular shapes with very different features, while Task 2 had 5 
+            different types of shapes overall (three being polygonal and thus more easily mistake) and even heavy rotation and stretching 
+            variability within similar shapes. <br><br>
+
+            CNNs were overall the best performing of these models. This could be due to a combination of CNNs requiring less data to capture 
+            a training task, CNNs being better at counting tasks overall, or a combination of both. Though CvT test performances were the 
+            worst for tasks 1 and 2, they were best for task 3. CNNs, with only slightly lower accuracy, were second best and ViTs performed 
+            significantly worse. This may be due to resolution, as Task 3 involved perceiving both larger and smaller shapes in relation to 
+            each other. It is possible then, that CNNs and the convolutional architecture in CvTs resulted in both models perceiving final 
+            details better than ViTs. The results from Fig. 5, showing the t-SNE plots of training data for all three models, add to this theory; 
+            notably, both CNNs and CvTs were able to properly segregate different number-count images from each other in training relatively well, 
+            though overfitting, while ViT’s results are noticeably muddier. Given Task 2 varies in shape sizes, it is possible ViTs were unable 
+            to capture the task as well because of their inability to perceive the smaller shapes and details in Task 2. This would be in line 
+            with our original prediction of CvTs being a good “middle ground” between the two architectures. <br><br>
+
+            Though ViTs were not the best performing, they did overall have the best accuracy loss between training and test. They even spiked 
+            in accuracy for Task 3. Thus, although ViTs performed suboptimally in many of the tasks, they may be the least likely to overfit. 
+            Interestingly, the CvT does not have similar low training-to-test losses. This could imply that vanilla ViTs are less prone to 
+            overfitting than their convolutional counterparts. However, this may also be due to convolutional layers being more data efficient. 
+            To properly assess this, we would need to train ViTs and CvTs with much more data to see if a comparison of overfitting yields 
+            similar results. <br><br>
+
+            <h4 class = "heading4">Latent Space Analysis</h4>
+            TSNE maps high-dimensional data to a two-dimensional space based on a statistical analysis of its features, mapping data points with 
+            similar features closer together on the 2D map. It can be thought of as a visualization of the distribution of the data that it fits, 
+            thus making it a good way to capture latent space distributions <a href = "#ref_6">[6]</a>. We define counting as an ability to (1) 
+            quantify numbers of objects and (2) the ability to relate neighboring numbers to each other (and thus, understand the iteration that happens 
+            in counting). Thus, in order for a model to show that it has adequately captured counting ability, we need to see both some separation between 
+            latent vectors of different number labels in the distribution and those of neighboring numbers to be close together. In other words, in a 
+            TSNE plot, successful counting is shown through a gradient. We see that for all models, Task 1 and Task 3 plots have this gradient in some 
+            form, while Task 2 remains murky, seemingly gradient-less for all three models. Notably, we find these gradients for the CvT and CNN 
+            training data distribution, implying that the difference between this and its test distribution is due to overfitting.  <br><br>
+
+            The differences between model plots reveal additional implications. The Task 1 plots for the CNN and ViT are pretty similar, with ViT having 
+            a slightly more overall defined shape and weaker gradient than the CNN. However, the CvT Task 1 plot stands out due to the clearly defined 
+            curved line. The curvature may be due to the nonlinearity of TSNE, which models its mapping estimations based on Gaussian distribution. 
+            However, the line specificity may imply that CvT focused much more strongly on the number of objects than anything else compared to the CNN 
+            and ViT. This may also be in part due to the fact that the CvT latent vector was the largest of the three, and data points with more features 
+            generally result in more defined shapes on a TSNE plot. <br><br>
+
+            Task 3 has the most varied distributions, with all models roughly grouping points into two clusters. These clusters could be either related 
+            to the shape presented or the level that the target shape (marked red) is placed at (either the central object or a more peripheral object). 
+            The CNN has a gradient for each cluster, though the gradient for one is more murky than the other, implying that the CNN was worse at counting 
+            for this class of images. The ViT and CvT however, have much more irregular distribution shapes overall, which is likely due to the higher 
+            dimensionality of their latent vectors and that transformers overall are more “shape-biased.” However, the biggest difference between these 
+            two plots is the distribution gradients. The ViT has two gradients emerging from a middle, while the CvT has one gradient that spans an entire 
+            axis. This may imply that the ViT learned two rules for counting for two types of images, while the CvT learned a much more generalizable 
+            counting rule for the entire dataset, which may have contributed to its overall better accuracy at Task 3. All in all, CNNs and CvTs had the best 
+            defined gradients, which implies that these models captured counting more than the ViT, even in testing data. This is surprising as it contradicts 
+            what the training and test accuracies imply about model overfitting, where the CNNs and CvTs overfit more. <br><br>
+
         </div>
 
         <div class="margin-right-block">
@@ -458,13 +552,58 @@
     </div>
 
 
-    <div class="content-margin-container" id="implications_and_limitations">
+    <div class="content-margin-container" id="conclusion">
         <div class="margin-left-block">
         </div>
 
         <div class="main-content-block">
-            <h1>Implications and limitations</h1>
-            Let's end with some discussion of the implications and limitations.
+            <h1>Conclusions and limitations</h1>
+            While all the models we tested performed better than chance across all experiments, several limitations still hindered overall performance. 
+            CvTs, which combine the strengths of CNNs and Transformers, inherently come with increased complexity and computational demands. Although our 
+            dataset is not as high-resolution or complex as natural image data, the memory and resource requirements still prevent us from experimenting 
+            with many hyperparameters, such as the number of layers, attention heads, kernel sizes, patch sizes, and learning rates. While the choices we 
+            made were sufficient, they may not have been optimal and can be further refined in future research. <br><br>
+
+            Similarly, our ViT likely did not reach its full potential, as many transformer-based models require larger datasets to effectively generalize 
+            and learn. With our relatively small and limited dataset, both ViTs and CvTs may have underperformed. Additionally, both CNNs and CvTs were 
+            prone to overfitting, likely due to the small dataset and limited variance in the data distribution. Although we couldn't find a solution to 
+            this issue within the scope of the project, this remains an area for improvement through fine-tuning in future work. <br><br>
+
+            Although we attempted to create an unbiased dataset by randomizing shapes, rotations, sizes, flips, and translations, we lacked the resources 
+            to fully verify its neutrality. Any bias introduced in the dataset could have compounded the effects on the CNN, ViT, and CVT models, potentially 
+            leading to inaccurate position predictions. For example, if the dataset generated labels and shapes that followed a Gaussian distribution 
+            instead of a uniform distribution, this could explain the model’s tendency to predict the average. <br><br>
+
+            Since all the models performed the worst on Task 2, we recommend repeating the task with several modifications to improve performance. 
+            Specifically, we suggest reducing the image complexity, increasing the training dataset size, and decreasing the number of shapes included. 
+            These adjustments could make the task more manageable and enhance model performance. One possible explanation for the poor results is that the 
+            target shape in Task 2 was less clearly defined compared to other shapes, either within the same task or across other tasks. If the target shape 
+            was more ambiguous or difficult to identify, this may have contributed to the lower accuracy. Additionally, it is possible that Task 2 is 
+            inherently more challenging for models to learn due to its specific characteristics, such as more complex recognition patterns or subtler 
+            differences between shapes. This increased difficulty could have hindered the models' ability to generalize, resulting in decreased accuracy. 
+            Therefore, simplifying the task and expanding the dataset could address both the complexity of the task and the potential data limitations, 
+            improving model performance in future iterations. <br><br>
+
+            On Task 3, we would like to introduce <b>more</b> complexity. Currently, the dataset consists of a single shape on multiple hierarchical levels; we 
+            propose creating a dataset that still retains the idea of attachment but introduces multiple shapes and requires the model to count the number 
+            of smaller attached shapes that match the target shape. We believe this modification could bring the task closer to the complexity of natural 
+            images, where objects are often composed of multiple components or parts that need to be identified and counted. This complexity is comparable 
+            to problems such as the six-finger problem, where the task involves distinguishing between unusual or rare configurations that the model may 
+            not have encountered during training. By introducing this level of complexity, we can better evaluate the model's ability to generalize to more 
+            complex and realistic scenarios, pushing the boundaries of what the models can learn and achieve. <br><br>
+
+            Our experiments with CNNs, ViTs, and CvTs revealed the strengths and weaknesses that each of the models has in counting.​​ CNNs outperformed ViTs, 
+            demonstrating superior results in simpler tasks and better generalization capabilities with the available dataset. CvTs, which combine the benefits 
+            of both CNNs and Visual Transformers, performed comparably to CNNs but were more computationally expensive due to their increased complexity.​​  <br><br>
+
+            With further exploration of more refined datasets and the training process, we can better understand the issue that vision models face when 
+            dealing with counting tasks. Though counting may seem like a simple task on the surface, it is incredibly complex and is not only a fundamental 
+            task in real-world applications, such as inventory management, wildlife monitoring, and healthcare, but it also plays a crucial role in enhancing 
+            the overall robustness of vision models. By improving a model’s ability to count accurately, we simultaneously bolster its capacity for scene 
+            understanding, spatial reasoning, and the abstraction of complex features within a visual representation, all of which are critical for tasks 
+            such as object detection, autonomous navigation, and decision-making in AI systems. <br><br>
+
+
         </div>
 
         <div class="margin-right-block">
@@ -480,10 +619,11 @@
                 <span style="font-size:16px">References:</span><br><br>
                 <a id="ref_1"></a>[1] Maurício, J., Domingues, I., & Bernardino, J. (2023). Comparing vision transformers and convolutional neural networks for Image Classification: A Literature Review. Applied Sciences, 13(9), 5521. https://doi.org/10.3390/app13095521<br><br>
                 <a id="ref_2"></a>[2] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
-                <a id="ref_3"></a>[3] Rane, S., Ku, A., Baldridge, J., Tenney, I., Griffiths, T. L., & Kim, B. (2024). Can Generative Multimodal Models Count to Ten. 46th Annual Meeting of the Cognitive Science Society.<br><br>
-                <a id="ref_4"></a>[4] Wu, H., Xiao, B., Codella, N., Liu, M., Dai, X., Yuan, L., & Zhang, L. (2021). CVT: Introducing convolutions to Vision Transformers. 2021 IEEE/CVF International Conference on Computer Vision (ICCV), 22–31. https://doi.org/10.1109/iccv48922.2021.00009<br><br>
-                <a id="ref_5"></a>[5] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
-                <a id="ref_6"></a>[6] Amjoud, A. B., & Amrouch, M. (2023). Object detection using deep learning, CNNS and Vision Transformers: A Review. IEEE Access, 11, 35479–35516. https://doi.org/10.1109/access.2023.3266093<br><br>
+                <a id="ref_3"></a>[3] Kondapaneni, N., & Perona, P. (2024). A number sense as an emergent property of the manipulating brain. Scientific Reports, 14(1). https://doi.org/10.1038/s41598-024-56828-2<br><br>
+                <a id="ref_4"></a>[4] Rane, S., Ku, A., Baldridge, J., Tenney, I., Griffiths, T. L., & Kim, B. (2024). Can Generative Multimodal Models Count to Ten. 46th Annual Meeting of the Cognitive Science Society.<br><br>
+                <a id="ref_5"></a>[5] Wu, H., Xiao, B., Codella, N., Liu, M., Dai, X., Yuan, L., & Zhang, L. (2021). CVT: Introducing convolutions to Vision Transformers. 2021 IEEE/CVF International Conference on Computer Vision (ICCV), 22–31. https://doi.org/10.1109/iccv48922.2021.00009<br><br>
+                <a id="ref_6"></a>[6] Liu, Y., Jun, E., Li, Q., & Heer, J. (2019). Latent space cartography: Visual analysis of vector space embeddings. Computer Graphics Forum, 38(3), 67–78. https://doi.org/10.1111/cgf.13672<br><br>
+
             </div>
         </div>
 
