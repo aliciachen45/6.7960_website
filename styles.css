@@ -173,12 +173,7 @@ padding: 10px;
     vertical-align: top; /* Aligns them at the top, you can adjust this to middle, bottom, etc., based on your needs */
     width: 50px; /* Optional: Adds space between the div and the paragraph */
 }
-/* .gallery {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-} */
-
+/* Multiple images styling (*/
 .gallery {
     display: flex;
     justify-content: space-between;
@@ -186,6 +181,8 @@ padding: 10px;
     background-color: #deecfb; /* Light grey background */
     border-radius: 20px; /* Rounded corners */
     padding: 10px; /*Padding around the gallery*/
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-collapse: collapse;
 }
 .gallery-item {
     text-align: center;
@@ -200,6 +197,7 @@ padding: 10px;
     color: #555;
 }
 
+/* Image Styling */
 .image {
     text-align: center;
     padding: 20px;
@@ -210,4 +208,41 @@ padding: 10px;
     display: block;
     margin: auto;
     padding: 10px;
+}
+
+.heading4 {
+    font-size: 15px;
+    text-decoration: underline;
+}
+/* Table Styling */
+.styled-table {
+    margin: auto;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+    background-color: #deecfb;
+    color: #032345;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #deecfb;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #eff5fc;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #deecfb;
 }
